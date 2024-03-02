@@ -2,8 +2,8 @@ import { User } from "./User";
 import { Address } from './Address';
 import { Product } from './Product';
 
-export interface Order {
-    id?: string;
+export interface Invoice {
+    _id?: string;
     id_client: string;
     id_delivery?: string;
     id_address: string;

@@ -13,8 +13,8 @@ import DropDownPicker from 'react-native-dropdown-picker';
 interface Props extends StackScreenProps<AdminOrderStackParamList, 'AdminOrderDetailScreen'>{};
 export const AdminOrderDetailScreen = ({navigation, route}: Props) => {
 
-  const { order } = route.params;
-  const { total, deliveryMen, responseMessage, open, value, items, getTotal, getDeliveryMen, setOpen, setValue, setItems, dispatchOrder } = useViewModel(order);
+  const { invoice } = route.params;
+  const { total, deliveryMen, responseMessage, open, value, items, getTotal, getDeliveryMen, setOpen, setValue, setItems, dispatchOrder } = useViewModel(invoice);
 
   useEffect(() => {
     if (responseMessage !== '') {
@@ -35,8 +35,8 @@ export const AdminOrderDetailScreen = ({navigation, route}: Props) => {
         <View style={ styles.products }>
 
           <FlatList 
-            data={ order.products }
-            keyExtractor={ (item) => item.id! }
+            data={ invoice.products }
+            keyExtractor={ (item) => item._id! }
             renderItem={ ({item}) => <OrderDetailItem product={item}/> }
           />
 
@@ -46,7 +46,7 @@ export const AdminOrderDetailScreen = ({navigation, route}: Props) => {
             
             <View style={styles.infoText}>
               <Text style={styles.infoTitle}>Fecha del pedido</Text>
-              <Text style={styles.infoDescription}>{DateFormatter(order.timestamp!)}</Text>
+              <Text style={styles.infoDescription}>{DateFormatter(invoice.timestamp!)}</Text>
             </View>
 
             <Image 
@@ -60,7 +60,7 @@ export const AdminOrderDetailScreen = ({navigation, route}: Props) => {
             
             <View style={styles.infoText}>
               <Text style={styles.infoTitle}>Cliente y telefono</Text>
-              <Text style={styles.infoDescription}>{order.client?.name} {order.client?.lastname} - {order.client?.phone}</Text>
+              <Text style={styles.infoDescription}>{invoice.client?.name} {invoice.client?.lastname} - {invoice.client?.phone}</Text>
             </View>
 
             <Image 
@@ -74,7 +74,7 @@ export const AdminOrderDetailScreen = ({navigation, route}: Props) => {
             
             <View style={styles.infoText}>
               <Text style={styles.infoTitle}>Direccion de entrega</Text>
-              <Text style={styles.infoDescription}>{order.address?.address} - {order.address?.neighborhood}</Text>
+              <Text style={styles.infoDescription}>{invoice.address?.address} - {invoice.address?.neighborhood}</Text>
             </View>
 
             <Image 
@@ -84,7 +84,7 @@ export const AdminOrderDetailScreen = ({navigation, route}: Props) => {
 
           </View>
           {
-            order.status === 'PAGADO' 
+            invoice.status === 'PAGADO' 
             ? 
             <View>
               <Text style={styles.deliveries}>REPARTIDORES DISPONIBLES</Text>
@@ -99,7 +99,7 @@ export const AdminOrderDetailScreen = ({navigation, route}: Props) => {
                 />
               </View>
             </View>
-            : <Text style={styles.deliveries}>REPARTIDOR ASIGNADO: {order.delivery?.name}</Text>
+            : <Text style={styles.deliveries}>REPARTIDOR ASIGNADO: {invoice.delivery?.name}</Text>
           }
           
 
@@ -109,7 +109,7 @@ export const AdminOrderDetailScreen = ({navigation, route}: Props) => {
             <Text style={styles.total}>TOTAL: ${ total }</Text>
             <View style={styles.button}>
               {
-                order.status === 'PAGADO' &&
+                invoice.status === 'PAGADO' &&
                 <RoundedButton text='DESPACHAR ORDEN' onPress={() => dispatchOrder()} />
               }
             </View>

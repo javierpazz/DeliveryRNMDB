@@ -19,7 +19,9 @@ const OrderListView = ({ status }: Props) => {
   const navigation = useNavigation<StackNavigationProp<ClientOrderStackParamList, 'ClientOrderListScreen'>>();
 
   useEffect(() => {
-    getOrders(user?.id!, status);
+    console.log('kikasaaaipp');
+    console.log(user);
+    getOrders(user?._id!, status);
   }, [user])
   
   return (
@@ -36,8 +38,8 @@ const OrderListView = ({ status }: Props) => {
             ? ordersDelivery
             : []
           }
-          keyExtractor={ (item) => item.id!}
-          renderItem={ ({item}) => <OrderListItem order={item} navigation={navigation}/> }
+          keyExtractor={ (item) => item._id!}
+          renderItem={ ({item}) => <OrderListItem invoice={item} navigation={navigation}/> }
         />
     </View>
   )

@@ -44,7 +44,7 @@ const ClientAddressCreateViewModel = () => {
         if (response.success) {
             resetForm();
             user.address = values;
-            user.address.id = response.data
+            user.address._id = response.data
             await saveUserSession(user);
             getUserSession();
         }

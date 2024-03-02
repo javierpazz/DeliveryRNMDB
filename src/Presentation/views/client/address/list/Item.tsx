@@ -14,8 +14,8 @@ export const AddressListItem = ({ address, checked, changeRadioValue }: Props) =
     <View style={ styles.container }>
         <View style={styles.info}>
             <RadioButton 
-                value={ address.id! }
-                status={ checked === address.id ? 'checked' : 'unchecked' }
+                value={ address._id! }
+                status={ checked === address._id ? 'checked' : 'unchecked' }
                 onPress={ () => changeRadioValue(address)}
             />
 

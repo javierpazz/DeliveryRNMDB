@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { GetByStatusOrderUseCase } from '../../../../../Domain/useCases/order/GetByStatusOrder';
-import { Order } from '../../../../../Domain/entities/Order';
+import { Invoice } from '../../../../../Domain/entities/Order';
 import { OrderContext } from '../../../../context/OrderContext';
 const AdminOrderListViewModel = () => {
 

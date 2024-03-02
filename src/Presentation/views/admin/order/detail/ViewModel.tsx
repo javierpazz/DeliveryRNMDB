@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Order } from '../../../../../Domain/entities/Order';
+import { Invoice } from '../../../../../Domain/entities/Order';
 import { GetDeliveryMenUserUseCase } from '../../../../../Domain/useCases/user/GetDeliveryMenUser';
 import { User } from '../../../../../Domain/entities/User';
 import { UpdateToDispatchedOrderUseCase } from '../../../../../Domain/useCases/order/UpdateToDispatchedOrder';
@@ -11,7 +11,7 @@ interface DropDownProps {
     label: string, 
     value: string
 }
-const AdminOrderDetailViewModel = (order: Order) => {
+const AdminOrderDetailViewModel = (invoice: Invoice) => {
     
     const [total, setTotal] = useState(0.0);
     const [deliveryMen, setDeliveryMen] = useState<User[]>([]);
@@ -31,11 +31,11 @@ const AdminOrderDetailViewModel = (order: Order) => {
 
     const dispatchOrder = async () => {
         if (value !== null) {
-            order.id_delivery = value!;
-            const result = await updateToDispatched(order);
+            invoice.id_delivery = value!;
+            const result = await updateToDispatched(invoice);
             setResponseMessage(result.message);
             if (result.success) {
-                const index = deliveryMen.findIndex((delivery) => delivery.id === value!);
+                const index = deliveryMen.findIndex((delivery) => delivery._id === value!);
                 console.log('TOKEN DE NOTIFICATION: ' + deliveryMen[index].notification_token);
                 
                 await sendPushNotification(deliveryMen[index].notification_token!, 'PEDIDO ASIGNADO', 'Te han asignado un pedido');
@@ -52,7 +52,7 @@ const AdminOrderDetailViewModel = (order: Order) => {
         deliveryMen.forEach(delivery => {
             itemsDeliveryMen.push({
                 label: delivery.name + ' ' + delivery.lastname,
-                value: delivery.id!
+                value: delivery._id!
             })
         });
         setItems(itemsDeliveryMen);
@@ -65,7 +65,7 @@ const AdminOrderDetailViewModel = (order: Order) => {
     } 
 
     const getTotal = () => {
-        order.products.forEach(p => {
+        invoice.products.forEach(p => {
             setTotal(total + (p.price * p.quantity!));
         });
     }

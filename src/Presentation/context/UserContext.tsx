@@ -5,7 +5,7 @@ import { GetUserLocalUseCase } from "../../Domain/useCases/userLocal/GetUserLoca
 import { RemoveUserLocalUseCase } from "../../Domain/useCases/userLocal/RemoveUserLocal";
 
 export const userInitialState: User = {
-    id:              '',
+    _id:              '',
     name:            '',
     lastname:        '',
     phone:           '',

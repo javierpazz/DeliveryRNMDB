@@ -1,4 +1,4 @@
-import { Order } from '../../Domain/entities/Order';
+import { Invoice } from '../../Domain/entities/Order';
 import { OrderRepository } from '../../Domain/repositories/OrderRepository';
 import { ResponseApiDelivery } from '../sources/remote/models/ResponseApiDelivery';
 import { AxiosError } from 'axios';
@@ -6,9 +6,9 @@ import { ApiDelivery } from '../sources/remote/api/ApiDelivery';
 
 export class OrderRepositoryImpl implements OrderRepository {
 
-    async getByStatus(status: string): Promise<Order[]> {
+    async getByStatus(status: string): Promise<Invoice[]> {
         try {
-            const response = await ApiDelivery.get<Order[]>(`/orders/findByStatus/${status}`)
+            const response = await ApiDelivery.get<Invoice[]>(`/orders/findByStatus/${status}`)
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);
@@ -17,9 +17,9 @@ export class OrderRepositoryImpl implements OrderRepository {
         }
     }
 
-    async getByDeliveryAndStatus(idDelivery: string, status: string): Promise<Order[]> {
+    async getByDeliveryAndStatus(idDelivery: string, status: string): Promise<Invoice[]> {
         try {
-            const response = await ApiDelivery.get<Order[]>(`/orders/findByDeliveryAndStatus/${idDelivery}/${status}`)
+            const response = await ApiDelivery.get<Invoice[]>(`/orders/findByDeliveryAndStatus/${idDelivery}/${status}`)
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);
@@ -28,9 +28,10 @@ export class OrderRepositoryImpl implements OrderRepository {
         }
     }
     
-    async getByClientAndStatus(idClient: string, status: string): Promise<Order[]> {
+    async getByClientAndStatus(idClient: string, status: string): Promise<Invoice[]> {
         try {
-            const response = await ApiDelivery.get<Order[]>(`/orders/findByClientAndStatus/${idClient}/${status}`)
+    
+            const response = await ApiDelivery.get<Invoice[]>(`/orders/findByClientAndStatus/${idClient}/${status}`)
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);
@@ -39,9 +40,9 @@ export class OrderRepositoryImpl implements OrderRepository {
         }
     }
 
-    async create(order: Order): Promise<ResponseApiDelivery> {
+    async create(invoice: Invoice): Promise<ResponseApiDelivery> {
         try {
-            const response = await ApiDelivery.post<ResponseApiDelivery>('/orders/create', order);
+            const response = await ApiDelivery.post<ResponseApiDelivery>('/orders/create', invoice);
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);
@@ -51,9 +52,9 @@ export class OrderRepositoryImpl implements OrderRepository {
         }
     }
 
-    async updateToDispatched(order: Order): Promise<ResponseApiDelivery> {
+    async updateToDispatched(invoice: Invoice): Promise<ResponseApiDelivery> {
         try {
-            const response = await ApiDelivery.put<ResponseApiDelivery>('/orders/updateToDispatched', order);
+            const response = await ApiDelivery.put<ResponseApiDelivery>('/orders/updateToDispatched', invoice);
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);
@@ -63,9 +64,9 @@ export class OrderRepositoryImpl implements OrderRepository {
         }
     }
     
-    async updateToOnTheWay(order: Order): Promise<ResponseApiDelivery> {
+    async updateToOnTheWay(invoice: Invoice): Promise<ResponseApiDelivery> {
         try {
-            const response = await ApiDelivery.put<ResponseApiDelivery>('/orders/updateToOnTheWay', order);
+            const response = await ApiDelivery.put<ResponseApiDelivery>('/orders/updateToOnTheWay', invoice);
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);
@@ -75,9 +76,9 @@ export class OrderRepositoryImpl implements OrderRepository {
         }
     }
     
-    async updateToDelivered(order: Order): Promise<ResponseApiDelivery> {
+    async updateToDelivered(invoice: Invoice): Promise<ResponseApiDelivery> {
         try {
-            const response = await ApiDelivery.put<ResponseApiDelivery>('/orders/updateToDelivered', order);
+            const response = await ApiDelivery.put<ResponseApiDelivery>('/orders/updateToDelivered', invoice);
             return Promise.resolve(response.data);
         } catch (error) {
             let e = (error as AxiosError);

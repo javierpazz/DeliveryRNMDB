@@ -15,7 +15,7 @@ const ClientProductDetailViewModel = (product: Product) => {
     console.log('BOLSA DE COMPRAS: ' + JSON.stringify(shoppingBag));
    
     useEffect(() => {
-        const index = shoppingBag.findIndex((p) => p.id == product.id);
+        const index = shoppingBag.findIndex((p) => p._id == product._id);
         if (index !== -1) { // PRODUCTO SI EXISTE 
             setQuantity(shoppingBag[index].quantity!);
         }

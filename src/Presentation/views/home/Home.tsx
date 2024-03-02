@@ -35,7 +35,7 @@ export const HomeScreen = ({navigation, route}: Props) => {
     }, [errorMessage])
 
     useEffect(() => {      
-        if (user?.id !== null && user?.id !== undefined && user?.id !== '') {
+        if (user?._id !== null && user?._id !== undefined && user?._id !== '') {
             
             // registerForPushNotificationsAsync().then(token => {
 

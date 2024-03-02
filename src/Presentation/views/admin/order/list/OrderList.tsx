@@ -35,8 +35,8 @@ const OrderListView = ({ status }: Props) => {
             ? ordersDelivery
             : []
           }
-          keyExtractor={ (item) => item.id!}
-          renderItem={ ({item}) => <OrderListItem order={item} navigation={navigation}/> }
+          keyExtractor={ (item) => item._id!}
+          renderItem={ ({item}) => <OrderListItem invoice={item} navigation={navigation}/> }
         />
     </View>
   )

@@ -26,7 +26,7 @@ const ClientAddressListViewModel = () => {
     const createOrder = async () => {
         const order: Order = {
             id_client: user.id!,
-            id_address: user.address?.id!,
+            id_address: user.address?._id!,
             products: shoppingBag
         }
         const result = await CreateOrderUseCase(order);
@@ -34,7 +34,7 @@ const ClientAddressListViewModel = () => {
     }
 
     const changeRadioValue = async (address: Address) => {
-        setChecked(address.id!);
+        setChecked(address._id!);
         user.address = address;
         saveUserSession(user);
     } 

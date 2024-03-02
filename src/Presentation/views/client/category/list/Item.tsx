@@ -16,55 +16,76 @@ export const ClientCategoryItem = ({category, height, width, navigation}: Props)
   return (
     <TouchableOpacity
         onPress={ () => {
-            navigation.navigate('ClientProductListScreen', { idCategory: category.id! })
-        }}
-        style={ { ...styles.container, height: height, width: width} }>
-        
-        <View style={ styles.imageContainer }>
-            <Image 
-                style={styles.image}
-                source={{ uri: category.image}}
-                />
-            <View style={styles.titleContainer}>
-                <Text style={ styles.title }>{ category.name }</Text>
+            navigation.navigate('ClientProductListScreen', { idCategory: category._id! })
+        }}>
+        <View style={ styles.container }>
+            <Image
+                style={ styles.image }
+                source={{ uri: category.image }}
+            />
+
+            <View style={styles.info}>
+                <Text style={styles.title}>{ category.name }</Text>
+                <Text style={styles.description}>{ category.description }</Text>
             </View>
+
+            <View style={ styles.actionContainer }>
+            </View>
+
         </View>
+        <View style={styles.divider}></View>
+        
     </TouchableOpacity>
   )
 }
 
-const styles = StyleSheet.create({
-    container: {
-        alignSelf: 'center',
-        paddingBottom: 20,
-        paddingHorizontal: 7,
-    },
-    imageContainer: {
-        flex: 1,
-        borderRadius: 18,
-        backgroundColor: 'white',
-    },
-    image: {
-        flex: 1,
-        // resizeMode: 'contain',
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15
-    },
-    titleContainer: {
-        height: 70,
-        backgroundColor: 'white',
-        borderBottomLeftRadius: 18,
-        borderBottomRightRadius: 18,
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: 20,
-        shadowColor: 'black',
-        shadowOffset: {width: 0, height: 2},
-        shadowOpacity: 0.5,
-        shadowRadius: 2
-    },
-    title: {
-        color: 'black',
-        fontSize: 25,
-    }
-})
+    const styles = StyleSheet.create({
+        container: {
+            width: '100%',
+            flexDirection: 'row',
+            height: 70,
+            marginHorizontal: 20,
+            marginTop: 10
+        },
+        imageContainer: {
+            flex: 1,
+            borderRadius: 18,
+            backgroundColor: 'white',
+        },
+        image: {
+            width: 60,
+            height: 60,
+            borderRadius: 15
+        },
+        info: {
+            marginLeft: 15,
+            flex: 1
+        },
+        titleContainer: {
+            color: 'black',
+            fontSize: 15
+        },
+        title: {
+            color: 'black',
+            fontSize: 15
+        },
+        description: {
+            color: 'gray',
+            fontSize: 12,
+            marginTop: 3
+        },
+        actionContainer: {
+            marginRight: 40
+        },
+        actionImage: {
+            width: 25,
+            height: 25,
+            marginVertical:2
+        },
+        divider: {
+            height: 1,
+            backgroundColor: '#f2f2f2',
+            marginHorizontal: 30,
+            flex: 1
+        }
+    });

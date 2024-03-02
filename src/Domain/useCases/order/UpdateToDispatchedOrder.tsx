@@ -1,8 +1,8 @@
 import { OrderRepositoryImpl } from "../../../Data/repositories/OrderRepository";
-import { Order } from '../../entities/Order';
+import { Invoice } from '../../entities/Order';
 
 const { updateToDispatched } = new OrderRepositoryImpl();
 
-export const UpdateToDispatchedOrderUseCase = async (order: Order) => {
-  return await updateToDispatched(order);
+export const UpdateToDispatchedOrderUseCase = async (invoice: Invoice) => {
+  return await updateToDispatched(invoice);
 }

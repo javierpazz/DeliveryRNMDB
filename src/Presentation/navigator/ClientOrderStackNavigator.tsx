@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react'
 import { Image, TouchableOpacity } from 'react-native';
-import { Order } from '../../Domain/entities/Order';
+import { Invoice } from '../../Domain/entities/Order';
 import { OrderProvider } from '../context/OrderContext';
 import { ClientOrderListScreen } from '../views/client/order/list/OrderList';
 import { ClientOrderDetailScreen } from '../views/client/order/detail/OrderDetail';
@@ -9,8 +9,8 @@ import { ClientOrderMapScreen } from '../views/client/order/map/OrderMap';
 
 export type ClientOrderStackParamList = {
   ClientOrderListScreen: undefined,
-  ClientOrderDetailScreen: { order: Order },
-  ClientOrderMapScreen: { order: Order },
+  ClientOrderDetailScreen: { invoice: Invoice },
+  ClientOrderMapScreen: { invoice: Invoice },
 }
 
 const Stack = createNativeStackNavigator<ClientOrderStackParamList>();

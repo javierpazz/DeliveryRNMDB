@@ -1,4 +1,4 @@
-import { Order } from '../../Domain/entities/Order';
+import { Invoice } from '../../Domain/entities/Order';
 import { ResponseApiDelivery } from '../../Data/sources/remote/models/ResponseApiDelivery';
 import { Children, createContext, useState, useEffect } from 'react';
 import { GetByStatusOrderUseCase } from '../../Domain/useCases/order/GetByStatusOrder';
@@ -9,26 +9,26 @@ import { UpdateToDeliveredOrderUseCase } from '../../Domain/useCases/order/Updat
 import { GetByClientAndStatusOrderUseCase } from '../../Domain/useCases/order/GetByClientAndStatusOrder';
 
 export interface OrderContextProps {
-    ordersPayed: Order[],
-    ordersDispatched: Order[],
-    ordersOnTheWay: Order[],
-    ordersDelivery: Order[],
+    ordersPayed: Invoice[],
+    ordersDispatched: Invoice[],
+    ordersOnTheWay: Invoice[],
+    ordersDelivery: Invoice[],
     getOrdersByStatus(status: string): Promise<void>,
     getOrdersByDeliveryAndStatus(idDelivery: string, status: string): Promise<void>,
     getOrdersByClientAndStatus(idClient: string, status: string): Promise<void>,
-    updateToDispatched(order: Order): Promise<ResponseApiDelivery>,
-    updateToOnTheWay(order: Order): Promise<ResponseApiDelivery>,
-    updateToDelivered(order: Order): Promise<ResponseApiDelivery>,
+    updateToDispatched(order: Invoice): Promise<ResponseApiDelivery>,
+    updateToOnTheWay(order: Invoice): Promise<ResponseApiDelivery>,
+    updateToDelivered(order: Invoice): Promise<ResponseApiDelivery>,
 }
 
 export const OrderContext = createContext({} as OrderContextProps);
 
 export const OrderProvider = ({children}: any) => {
 
-    const [ordersPayed, setOrdersPayed] = useState<Order[]>([]);
-    const [ordersDispatched, setOrdersDispatched] = useState<Order[]>([]);
-    const [ordersOnTheWay, setOrdersOnTheWay] = useState<Order[]>([]);
-    const [ordersDelivery, setOrdersDelivery] = useState<Order[]>([]);
+    const [ordersPayed, setOrdersPayed] = useState<Invoice[]>([]);
+    const [ordersDispatched, setOrdersDispatched] = useState<Invoice[]>([]);
+    const [ordersOnTheWay, setOrdersOnTheWay] = useState<Invoice[]>([]);
+    const [ordersDelivery, setOrdersDelivery] = useState<Invoice[]>([]);
 
     useEffect(() => {
         setOrdersPayed([]);
@@ -87,21 +87,21 @@ export const OrderProvider = ({children}: any) => {
         }
     }
 
-    const updateToDispatched = async (order: Order) => {
+    const updateToDispatched = async (order: Invoice) => {
         const result = await UpdateToDispatchedOrderUseCase(order);
         getOrdersByStatus('PAGADO');
         getOrdersByStatus('DESPACHADO');
         return result;
     }
     
-    const updateToOnTheWay = async (order: Order) => {
+    const updateToOnTheWay = async (order: Invoice) => {
         const result = await UpdateToOnTheWayOrderUseCase(order);
         getOrdersByDeliveryAndStatus(order.id_delivery!,  'DESPACHADO');
         getOrdersByDeliveryAndStatus(order.id_delivery!, 'EN CAMINO');
         return result;
     }
     
-    const updateToDelivered = async (order: Order) => {
+    const updateToDelivered = async (order: Invoice) => {
         const result = await UpdateToDeliveredOrderUseCase(order);
         getOrdersByDeliveryAndStatus(order.id_delivery!, 'EN CAMINO');
         getOrdersByDeliveryAndStatus(order.id_delivery!,  'ENTREGADO');

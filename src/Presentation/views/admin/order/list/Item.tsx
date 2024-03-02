@@ -1,5 +1,5 @@
 import React from 'react'
-import { Order } from '../../../../../Domain/entities/Order';
+import { Invoice } from '../../../../../Domain/entities/Order';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { DateFormatter } from '../../../../utils/DateFormatter';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -7,20 +7,20 @@ import { AdminOrderStackParamList } from '../../../../navigator/AdminOrderStackN
 
 
 interface Props {
-    order: Order,
+    invoice: Invoice,
     navigation: StackNavigationProp<AdminOrderStackParamList, 'AdminOrderListScreen', undefined>
 }
-export const OrderListItem = ({ order, navigation }: Props) => {
+export const OrderListItem = ({ invoice, navigation }: Props) => {
   return (
     <TouchableOpacity
-        onPress={() => navigation.navigate('AdminOrderDetailScreen', {order: order})}
+        onPress={() => navigation.navigate('AdminOrderDetailScreen', {invoice: invoice})}
     >
         <View style={ styles.container }>
-            <Text style={ styles.order }>Orden #{order.id}</Text>
-            <Text style={ {...styles.info, marginTop: 10} }>Fecha del pedido: { DateFormatter(order.timestamp!)}</Text>
-            <Text style={ styles.info }>Cliente: {order.client?.name} {order.client?.lastname}</Text>
-            <Text style={ styles.info }>Direccion: {order.address?.address}</Text>
-            <Text style={ styles.info }>Barrio: {order.address?.neighborhood}</Text>
+            <Text style={ styles.order }>Orden #{invoice._id}</Text>
+            <Text style={ {...styles.info, marginTop: 10} }>Fecha del pedido: { DateFormatter(invoice.timestamp!)}</Text>
+            <Text style={ styles.info }>Cliente: {invoice.client?.name} {invoice.client?.lastname}</Text>
+            <Text style={ styles.info }>Direccion: {invoice.address?.address}</Text>
+            <Text style={ styles.info }>Barrio: {invoice.address?.neighborhood}</Text>
             <View  style={ styles.divider }></View>
         </View>
     </TouchableOpacity>

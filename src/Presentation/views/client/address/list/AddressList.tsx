@@ -21,7 +21,7 @@ export const ClientAddressListScreen = ({navigation, route}: Props) => {
     <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList 
           data={ address }
-          keyExtractor={ (item) => item.id! }
+          keyExtractor={ (item) => item._id! }
           renderItem={ ({item}) => 
             <AddressListItem 
               address={ item } 

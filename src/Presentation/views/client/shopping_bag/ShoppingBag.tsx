@@ -17,7 +17,7 @@ export const ClientShoppingBagScreen = ({navigation, route}: Props) => {
     <View style={styles.container}>
         <FlatList 
           data={shoppingBag}
-          keyExtractor={ (item) => item.id!}
+          keyExtractor={ (item) => item._id!}
           renderItem={ ({item}) => 
             <ShoppingBagItem  
               product={item}  

@@ -1,14 +1,14 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react'
 import { Image, TouchableOpacity } from 'react-native';
-import { Order } from '../../Domain/entities/Order';
+import { Invoice } from '../../Domain/entities/Order';
 import { OrderProvider } from '../context/OrderContext';
 import { AdminOrderDetailScreen } from '../views/admin/order/detail/OrderDetail';
 import { AdminOrderListScreen } from '../views/admin/order/list/OrderList';
 
 export type AdminOrderStackParamList = {
     AdminOrderListScreen: {isUpdate: boolean} | undefined,
-    AdminOrderDetailScreen: { order: Order },
+    AdminOrderDetailScreen: { invoice: Invoice },
 }
 
 const Stack = createNativeStackNavigator<AdminOrderStackParamList>();

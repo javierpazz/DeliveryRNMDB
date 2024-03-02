@@ -20,7 +20,7 @@ export const ClientProductListScreen = ({navigation, route}: Props) => {
         <View style={{flex: 1, backgroundColor:'white'}}>
             <FlatList 
                 data={ products }
-                keyExtractor={ (item) => item.id! }
+                keyExtractor={ (item) => item._id! }
                 renderItem={ ({item}) => <ClientProductItem product={item} navigation={navigation} /> }
             />
         </View>
