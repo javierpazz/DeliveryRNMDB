@@ -3,11 +3,11 @@ import React, { useEffect, useState, useRef, useContext } from 'react'
 import MapView, { Camera } from 'react-native-maps';
 import { StackScreenProps } from '@react-navigation/stack';
 import { DeliveryOrderStackParamList } from '../../../../navigator/DeliveryOrderStackNavigator';
-import { Order } from '../../../../../Domain/entities/Order';
+import { Invoice } from '../../../../../Domain/entities/Order';
 import { OrderContext } from '../../../../context/OrderContext';
 import socket from '../../../../utils/SocketIO';
 
-const DeliveryOrderMapViewModel = (order: Order) => {
+const DeliveryOrderMapViewModel = (invoice: Invoice) => {
     
     const [messagePermissions, setMessagePermissions] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
@@ -22,8 +22,8 @@ const DeliveryOrderMapViewModel = (order: Order) => {
         longitude: 0.0
     });
     const [destination, setDestination] = useState({
-        latitude: order.address?.lat!,
-        longitude: order.address?.lng!
+        latitude: invoice.address?.lat!,
+        longitude: invoice.address?.lng!
     });
     const mapRef = useRef<MapView | null>(null);
     let positionSuscription: Location.LocationSubscription;
@@ -51,7 +51,7 @@ const DeliveryOrderMapViewModel = (order: Order) => {
     }, [])
 
     const updateToDeliveredOrder = async () => {
-        const result = await updateToDelivered(order);
+        const result = await updateToDelivered(invoice);
         setResponseMessage(result.message);
     }
 
@@ -115,7 +115,7 @@ const DeliveryOrderMapViewModel = (order: Order) => {
             location => {
                 // console.log('POSITION: ' + JSON.stringify(location.coords, null, 3));
                 socket.emit('position', {
-                    id_order: order.id!,
+                    id_order: invoice._id!,
                     lat: location?.coords.latitude,
                     lng: location?.coords.longitude,
                 })

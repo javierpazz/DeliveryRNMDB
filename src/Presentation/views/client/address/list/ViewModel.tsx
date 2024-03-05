@@ -3,7 +3,7 @@ import { GetByUserAddressUseCase } from '../../../../../Domain/useCases/address/
 import { Address } from '../../../../../Domain/entities/Address';
 import { UserContext } from '../../../../context/UserContext';
 import { CreateOrderUseCase } from '../../../../../Domain/useCases/order/CreateOrder';
-import { Order } from '../../../../../Domain/entities/Order';
+import { Invoice } from '../../../../../Domain/entities/Order';
 import { ShoppingBagContext } from '../../../../context/ShoppingBagContext';
 
 const ClientAddressListViewModel = () => {
@@ -24,12 +24,12 @@ const ClientAddressListViewModel = () => {
     }, [user])
     
     const createOrder = async () => {
-        const order: Order = {
-            id_client: user.id!,
+        const invoice: Invoice = {
+            id_client: user._id!,
             id_address: user.address?._id!,
             products: shoppingBag
         }
-        const result = await CreateOrderUseCase(order);
+        const result = await CreateOrderUseCase(invoice);
         setResponseMessage(result.message);
     }
 
@@ -40,7 +40,7 @@ const ClientAddressListViewModel = () => {
     } 
 
     const getAddress = async () => {
-        const result = await GetByUserAddressUseCase(user.id!);
+        const result = await GetByUserAddressUseCase(user._id!);
         setAddress(result);
     }
 

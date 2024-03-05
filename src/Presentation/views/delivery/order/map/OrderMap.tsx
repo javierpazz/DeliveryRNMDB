@@ -13,8 +13,8 @@ import { GOOGLE_MAPS_APIKEY } from '../../../../contants/GoogleMapApiKey';
 interface Props extends StackScreenProps<DeliveryOrderStackParamList, 'DeliveryOrderMapScreen'>{};
 export const DeliveryOrderMapScreen = ({navigation, route}: Props) => {
     
-    const { order } = route.params;
-    const { messagePermissions, position, responseMessage, socket, mapRef, origin, destination, stopForegroundUpdate, updateToDeliveredOrder } = useViewModel(order);
+    const { invoice } = route.params;
+    const { messagePermissions, position, responseMessage, socket, mapRef, origin, destination, stopForegroundUpdate, updateToDeliveredOrder } = useViewModel(invoice);
 
     useEffect(() => {
       if (messagePermissions != '') {
@@ -60,9 +60,9 @@ export const DeliveryOrderMapScreen = ({navigation, route}: Props) => {
                     </Marker>
                 }
                 {
-                    order.address !== undefined &&
+                    invoice.address !== undefined &&
                     <Marker 
-                        coordinate={{ latitude: order.address.lat, longitude: order.address.lng }}
+                        coordinate={{ latitude: invoice.address.lat, longitude: invoice.address.lng }}
                     >
                         <Image 
                             style={styles.markerImage}
@@ -90,7 +90,7 @@ export const DeliveryOrderMapScreen = ({navigation, route}: Props) => {
             
                     <View style={styles.infoText}>
                         <Text style={styles.infoTitle}>Barrio</Text>
-                        <Text style={styles.infoDescription}>{order.address?.neighborhood}</Text>
+                        <Text style={styles.infoDescription}>{invoice.address?.neighborhood}</Text>
                     </View>
 
                     <Image 
@@ -104,7 +104,7 @@ export const DeliveryOrderMapScreen = ({navigation, route}: Props) => {
             
                     <View style={styles.infoText}>
                         <Text style={styles.infoTitle}>Direccion</Text>
-                        <Text style={styles.infoDescription}>{order.address?.address}</Text>
+                        <Text style={styles.infoDescription}>{invoice.address?.address}</Text>
                     </View>
 
                     <Image 
@@ -119,9 +119,9 @@ export const DeliveryOrderMapScreen = ({navigation, route}: Props) => {
                 <View style={ styles.infoClient }>
                     <Image 
                         style={styles.imageClient}
-                        source={{uri: order.client?.image}}
+                        source={{uri: invoice.client?.image}}
                     />
-                    <Text style={ styles.nameClient }>{order.client?.name} {order.client?.lastname}</Text>
+                    <Text style={ styles.nameClient }>{invoice.client?.name} {invoice.client?.lastname}</Text>
                     <Image 
                         style={styles.imagePhone}
                         source={require('../../../../../../assets/phone.png')}

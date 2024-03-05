@@ -24,7 +24,7 @@ export const RegisterScreen = ({navigation, route}: Props) => {
   }, [errorMessage])
 
   useEffect(() => {      
-    if (user?.id !== null && user?.id !== undefined) {
+    if (user?._id !== null && user?._id !== undefined) {
         navigation.replace('ClientTabsNavigator');
     }
   }, [user])

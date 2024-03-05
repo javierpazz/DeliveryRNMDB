@@ -16,9 +16,9 @@ export interface OrderContextProps {
     getOrdersByStatus(status: string): Promise<void>,
     getOrdersByDeliveryAndStatus(idDelivery: string, status: string): Promise<void>,
     getOrdersByClientAndStatus(idClient: string, status: string): Promise<void>,
-    updateToDispatched(order: Invoice): Promise<ResponseApiDelivery>,
-    updateToOnTheWay(order: Invoice): Promise<ResponseApiDelivery>,
-    updateToDelivered(order: Invoice): Promise<ResponseApiDelivery>,
+    updateToDispatched(invoice: Invoice): Promise<ResponseApiDelivery>,
+    updateToOnTheWay(invoice: Invoice): Promise<ResponseApiDelivery>,
+    updateToDelivered(invoice: Invoice): Promise<ResponseApiDelivery>,
 }
 
 export const OrderContext = createContext({} as OrderContextProps);
@@ -87,24 +87,24 @@ export const OrderProvider = ({children}: any) => {
         }
     }
 
-    const updateToDispatched = async (order: Invoice) => {
-        const result = await UpdateToDispatchedOrderUseCase(order);
+    const updateToDispatched = async (invoice: Invoice) => {
+        const result = await UpdateToDispatchedOrderUseCase(invoice);
         getOrdersByStatus('PAGADO');
         getOrdersByStatus('DESPACHADO');
         return result;
     }
     
-    const updateToOnTheWay = async (order: Invoice) => {
-        const result = await UpdateToOnTheWayOrderUseCase(order);
-        getOrdersByDeliveryAndStatus(order.id_delivery!,  'DESPACHADO');
-        getOrdersByDeliveryAndStatus(order.id_delivery!, 'EN CAMINO');
+    const updateToOnTheWay = async (invoice: Invoice) => {
+        const result = await UpdateToOnTheWayOrderUseCase(invoice);
+        getOrdersByDeliveryAndStatus(invoice.id_delivery!,  'DESPACHADO');
+        getOrdersByDeliveryAndStatus(invoice.id_delivery!, 'EN CAMINO');
         return result;
     }
     
-    const updateToDelivered = async (order: Invoice) => {
-        const result = await UpdateToDeliveredOrderUseCase(order);
-        getOrdersByDeliveryAndStatus(order.id_delivery!, 'EN CAMINO');
-        getOrdersByDeliveryAndStatus(order.id_delivery!,  'ENTREGADO');
+    const updateToDelivered = async (invoice: Invoice) => {
+        const result = await UpdateToDeliveredOrderUseCase(invoice);
+        getOrdersByDeliveryAndStatus(invoice.id_delivery!, 'EN CAMINO');
+        getOrdersByDeliveryAndStatus(invoice.id_delivery!,  'ENTREGADO');
         return result;
     }
 

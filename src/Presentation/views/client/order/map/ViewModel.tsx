@@ -3,11 +3,11 @@ import React, { useEffect, useState, useRef, useContext } from 'react'
 import MapView, { Camera } from 'react-native-maps';
 import { StackScreenProps } from '@react-navigation/stack';
 import { DeliveryOrderStackParamList } from '../../../../navigator/DeliveryOrderStackNavigator';
-import { Order } from '../../../../../Domain/entities/Order';
+import { Invoice } from '../../../../../Domain/entities/Order';
 import { OrderContext } from '../../../../context/OrderContext';
 import socket from '../../../../utils/SocketIO';
 
-const ClientOrderMapViewModel = (order: Order) => {
+const ClientOrderMapViewModel = (order: Invoice) => {
     
     const [messagePermissions, setMessagePermissions] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
@@ -47,7 +47,7 @@ const ClientOrderMapViewModel = (order: Order) => {
         socket.on('connect', () => {
             console.log('------------- SOCKET IO CONNECTION ---------------');
         });
-        socket.on(`position/${order.id!}`, (data: any) => {
+        socket.on(`position/${order._id!}`, (data: any) => {
             setPosition({latitude: data.lat, longitude: data.lng});
         })
         const requestPermissions = async () => {

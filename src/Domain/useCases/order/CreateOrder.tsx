@@ -1,8 +1,8 @@
 import { OrderRepositoryImpl } from "../../../Data/repositories/OrderRepository";
-import { Order } from '../../entities/Order';
+import { Invoice } from '../../entities/Order';
 
 const { create } = new OrderRepositoryImpl();
 
-export const CreateOrderUseCase = async (order: Order) => {
-  return await create(order);
+export const CreateOrderUseCase = async (invoice: Invoice) => {
+  return await create(invoice);
 }

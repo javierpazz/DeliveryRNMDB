@@ -14,8 +14,8 @@ import { DeliveryOrderStackParamList } from '../../../../navigator/DeliveryOrder
 interface Props extends StackScreenProps<DeliveryOrderStackParamList, 'DeliveryOrderDetailScreen'>{};
 export const DeliveryOrderDetailScreen = ({navigation, route}: Props) => {
 
-  const { order } = route.params;
-  const { total, deliveryMen, responseMessage, open, value, items, getTotal, setOpen, setValue, setItems, updateToOnTheWayOrder } = useViewModel(order);
+  const { invoice } = route.params;
+  const { total, deliveryMen, responseMessage, open, value, items, getTotal, setOpen, setValue, setItems, updateToOnTheWayOrder } = useViewModel(invoice);
 
   useEffect(() => {
     if (responseMessage !== '') {
@@ -35,8 +35,8 @@ export const DeliveryOrderDetailScreen = ({navigation, route}: Props) => {
         <View style={ styles.products }>
 
           <FlatList 
-            data={ order.products }
-            keyExtractor={ (item) => item.id! }
+            data={ invoice.products }
+            keyExtractor={ (item) => item._id! }
             renderItem={ ({item}) => <OrderDetailItem product={item}/> }
           />
 
@@ -46,7 +46,7 @@ export const DeliveryOrderDetailScreen = ({navigation, route}: Props) => {
             
             <View style={styles.infoText}>
               <Text style={styles.infoTitle}>Fecha del pedido</Text>
-              <Text style={styles.infoDescription}>{DateFormatter(order.timestamp!)}</Text>
+              <Text style={styles.infoDescription}>{DateFormatter(invoice.timestamp!)}</Text>
             </View>
 
             <Image 
@@ -60,7 +60,7 @@ export const DeliveryOrderDetailScreen = ({navigation, route}: Props) => {
             
             <View style={styles.infoText}>
               <Text style={styles.infoTitle}>Cliente y telefono</Text>
-              <Text style={styles.infoDescription}>{order.client?.name} {order.client?.lastname} - {order.client?.phone}</Text>
+              <Text style={styles.infoDescription}>{invoice.client?.name} {invoice.client?.lastname} - {invoice.client?.phone}</Text>
             </View>
 
             <Image 
@@ -74,7 +74,7 @@ export const DeliveryOrderDetailScreen = ({navigation, route}: Props) => {
             
             <View style={styles.infoText}>
               <Text style={styles.infoTitle}>Direccion de entrega</Text>
-              <Text style={styles.infoDescription}>{order.address?.address} - {order.address?.neighborhood}</Text>
+              <Text style={styles.infoDescription}>{invoice.address?.address} - {invoice.address?.neighborhood}</Text>
             </View>
 
             <Image 
@@ -88,7 +88,7 @@ export const DeliveryOrderDetailScreen = ({navigation, route}: Props) => {
           
             <View style={styles.infoText}>
               <Text style={styles.infoTitle}>REPARTIDOR ASIGNADO</Text>
-              <Text style={styles.infoDescription}>{order.delivery?.name} {order.delivery?.lastname}</Text>
+              <Text style={styles.infoDescription}>{invoice.delivery?.name} {invoice.delivery?.lastname}</Text>
             </View>
 
             <Image 
@@ -102,12 +102,12 @@ export const DeliveryOrderDetailScreen = ({navigation, route}: Props) => {
             <Text style={styles.total}>TOTAL: ${ total }</Text>
             <View style={styles.button}>
               {
-                order.status === 'DESPACHADO' &&
+                invoice.status === 'DESPACHADO' &&
                 <RoundedButton text='INICIAR ENTREGA' onPress={() => updateToOnTheWayOrder()} />
               }
               {
-                order.status === 'EN CAMINO' &&
-                <RoundedButton text='IR AL RUTA' onPress={() => navigation.navigate('DeliveryOrderMapScreen', {order: order})} />
+                invoice.status === 'EN CAMINO' &&
+                <RoundedButton text='IR AL RUTA' onPress={() => navigation.navigate('DeliveryOrderMapScreen', {invoice: invoice})} />
               }
             </View>
           </View>

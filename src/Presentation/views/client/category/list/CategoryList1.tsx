@@ -27,7 +27,7 @@ export const ClientCategoryListScreen = ({navigation, route}: Props) => {
     <View style={{ backgroundColor: 'white'}}>
         <FlatList
           data={ categories }
-          keyExtractor={ (item) => item.id! }
+          keyExtractor={ (item) => item._id! }
           // renderItem={ ({item}) =>  <AdminCategoryListItem category={item} remove={deleteCategory} />}
           renderItem={ ({item}) => <ClientCategoryItem category={ item } height={ height * 0.62 } width={ width - 70 } navigation={navigation}/>}
 />

@@ -19,7 +19,7 @@ const OrderListView = ({ status }: Props) => {
   const navigation = useNavigation<StackNavigationProp<DeliveryOrderStackParamList, 'DeliveryOrderListScreen'>>();
 
   useEffect(() => {
-    getOrders(user?.id!, status);
+    getOrders(user?._id!, status);
   }, [user])
   
   return (
@@ -34,8 +34,8 @@ const OrderListView = ({ status }: Props) => {
             ? ordersDelivery
             : []
           }
-          keyExtractor={ (item) => item.id!}
-          renderItem={ ({item}) => <OrderListItem order={item} navigation={navigation}/> }
+          keyExtractor={ (item) => item._id!}
+          renderItem={ ({item}) => <OrderListItem invoice={item} navigation={navigation}/> }
         />
     </View>
   )

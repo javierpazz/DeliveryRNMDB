@@ -20,8 +20,8 @@ const ClientAddressCreateViewModel = () => {
     const { user, saveUserSession, getUserSession } = useContext(UserContext);
 
     useEffect(() => {
-        if (user.id != '') {
-            onChange('id_user', user.id);
+        if (user._id != '') {
+            onChange('id_user', user._id);
         }
     }, [user])
     
@@ -57,7 +57,7 @@ const ClientAddressCreateViewModel = () => {
             refPoint: '',
             lat: 0.0,
             lng: 0.0,
-            id_user: user.id!,
+            id_user: user._id!,
         })
     }
 

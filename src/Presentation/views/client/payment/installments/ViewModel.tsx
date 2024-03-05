@@ -46,8 +46,8 @@ const ClientPaymentInstallmentsViewModel = (cardToken: ResponseMercadoPagoCardTo
                 }
             },
             order: {
-                id_client: user.id!,
-                id_address: user.address?.id!,
+                id_client: user._id!,
+                id_address: user.address?._id!,
                 products: shoppingBag
             }
         } 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Order } from '../../../../../Domain/entities/Order';
+import { Invoice } from '../../../../../Domain/entities/Order';
 import { GetDeliveryMenUserUseCase } from '../../../../../Domain/useCases/user/GetDeliveryMenUser';
 import { User } from '../../../../../Domain/entities/User';
 import { UpdateToDispatchedOrderUseCase } from '../../../../../Domain/useCases/order/UpdateToDispatchedOrder';
@@ -10,7 +10,7 @@ interface DropDownProps {
     label: string, 
     value: string
 }
-const AdminOrderDetailViewModel = (order: Order) => {
+const AdminOrderDetailViewModel = (invoice: Invoice) => {
     
     const [total, setTotal] = useState(0.0);
     const [deliveryMen, setDeliveryMen] = useState<User[]>([]);
@@ -22,12 +22,12 @@ const AdminOrderDetailViewModel = (order: Order) => {
     const { updateToOnTheWay, getOrdersByStatus } = useContext(OrderContext);
 
     const updateToOnTheWayOrder = async () => {
-        const result = await updateToOnTheWay(order);
+        const result = await updateToOnTheWay(invoice);
         setResponseMessage(result.message);
     }
 
     const getTotal = () => {
-        order.products.forEach(p => {
+        invoice.products.forEach(p => {
             setTotal(total + (p.price * p.quantity!));
         });
     }

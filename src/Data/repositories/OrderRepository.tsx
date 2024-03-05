@@ -65,6 +65,7 @@ export class OrderRepositoryImpl implements OrderRepository {
     }
     
     async updateToOnTheWay(invoice: Invoice): Promise<ResponseApiDelivery> {
+        console.log('antersproblem ', invoice);
         try {
             const response = await ApiDelivery.put<ResponseApiDelivery>('/orders/updateToOnTheWay', invoice);
             return Promise.resolve(response.data);
