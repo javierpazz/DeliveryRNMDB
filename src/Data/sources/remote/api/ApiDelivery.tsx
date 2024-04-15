@@ -3,14 +3,15 @@ import { User } from '../../../../Domain/entities/User';
 import { LocalStorage } from '../../local/LocalStorage';
 
 const ApiDelivery = axios.create({
-    baseURL: 'http://192.168.0.105:3000/api',
+    // baseURL: 'http://192.168.0.105:5000/api',
+    baseURL: 'https://jpz-stutz-production.up.railway.app/api',
     headers: {
         'Content-type': 'application/json'
     }
 })
-
 const ApiDeliveryForImage = axios.create({
-    baseURL: 'http://192.168.0.105:3000/api',
+    // baseURL: 'http://192.168.0.105:5000/api',
+    baseURL: 'https://jpz-stutz-production.up.railway.app/api',
     headers: {
         'Content-type': 'multipart/form-data',
         'accept': 'application/json',

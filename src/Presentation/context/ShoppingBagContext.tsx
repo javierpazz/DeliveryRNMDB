@@ -45,7 +45,7 @@ export const ShoppingBagProvider = ({children}: any) => {
 
     const saveItem = async (product: Product): Promise<void> => {
         
-        const index = shoppingBag.findIndex((p) => p.id == product.id);
+        const index = shoppingBag.findIndex((p) => p._id == product._id);
         if (index == -1) { // PRODUCTO NO HA SIDO AGREGADO A LA BOLSA COMPRAS -> INSERTARLO A LISTA
             shoppingBag.push(product);
         }
@@ -57,7 +57,7 @@ export const ShoppingBagProvider = ({children}: any) => {
     }
 
     const deleteItem = async (product: Product): Promise<void> => {
-        const index = shoppingBag.findIndex((p) => p.id == product.id);
+        const index = shoppingBag.findIndex((p) => p._id == product._id);
         shoppingBag.splice(index, 1);
         await SaveShoppingBagUseCase(shoppingBag);
         getShoppingBag();

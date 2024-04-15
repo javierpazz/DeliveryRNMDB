@@ -10,7 +10,7 @@ const ClientAddressListViewModel = () => {
 
     const [address, setAddress] = useState<Address[]>([]);
     const { user, saveUserSession, getUserSession } = useContext(UserContext);
-    const { shoppingBag } = useContext( ShoppingBagContext );
+    const { total, shoppingBag } = useContext( ShoppingBagContext );
     const [checked, setChecked] = useState('');
     const [responseMessage, setResponseMessage] = useState('');
 
@@ -20,14 +20,23 @@ const ClientAddressListViewModel = () => {
         if (user.address !== null && user.address !== undefined) {
             changeRadioValue(user.address!);
             console.log('USUARIO CON DIRECCION: ' + JSON.stringify(user));
+            console.log('US: ' + user.address + user.address.lat + user.address.lng);
+            
         }
     }, [user])
     
+
     const createOrder = async () => {
         const invoice: Invoice = {
             id_client: user._id!,
             id_address: user.address?._id!,
-            products: shoppingBag
+            products: shoppingBag,
+            totalPrice: total,
+            itemsPrice: total,
+            // lng: user.address?.lng,
+            // lat: user.address?.lat,
+           // shippingAddress.location.lat: user.address?.lat,
+           // shippingAddress.fullName: user.address?.name!,
         }
         const result = await CreateOrderUseCase(invoice);
         setResponseMessage(result.message);
